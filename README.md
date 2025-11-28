@@ -1,16 +1,43 @@
-# React + Vite
+# Weather App 🌤️
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern, responsive Weather Forecast application built with **React**, **TailwindCSS**, and **OpenWeatherMap API**. The app allows users to get **live weather data** for their current location or any city worldwide with a clean and modern UI design.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## **Features**
 
-## React Compiler
+- 🔍 **Search by city** – Enter any city to get current weather
+- 🌐 **Auto-detect location** – Get weather based on your device location
+- 🌦 **Dynamic backgrounds** – Background images change based on weather conditions
+- 🌈 **Responsive design** – Works perfectly on desktop, tablet, and mobile
+- 🖤 **Readable UI** – Black text on glassmorphic cards with smooth corner curves
+- ❄️ **Weather details** – Temperature, Humidity, Wind, Description, Weather Icon
+- ⚡ **Smooth animations** – Animated loading, icons, and cards
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+
+## **Technologies Used**
+
+- ReactJS
+- TailwindCSS
+- React Icons
+- Axios (for API requests)
+- OpenWeatherMap API
+
+---
+
+## **Getting Started**
+
+### **Prerequisites**
+
+- Node.js installed (v16+ recommended)
+- npm or yarn
+
+### **Installation**
+
+1. Clone the repository:
+
+```bash
+git clone https://github.com/your-username/weather-app.git
