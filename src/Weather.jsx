@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import {
+  FaSun,
   FaCloud,
-  FaCloudSun,
-  FaInfoCircle,
+  FaCloudRain,
+  FaSnowflake,
   FaSearch,
-  FaTemperatureHigh,
   FaWind,
   FaTint
 } from "react-icons/fa";
@@ -58,90 +58,78 @@ export default function Weather() {
     setLoading(false);
   };
 
-  const getBackgroundImage = () => {
-    if (!data)
-      return "url('https://images.unsplash.com/photo-1553902001-149de4c1bd99?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjR8fGNsZWFyJTIwd2VhdGhlciUyMCUyMGJhY2tncm91bmR8ZW58MHx8MHx8fDA%3D')";
-    const main = data.weather[0].main.toLowerCase();
-    if (main.includes("cloud"))
-      return "url('https://images.unsplash.com/photo-1721867465507-972d9bb30071?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8d2VhdGhlciUyMGNsb3VkfGVufDB8fDB8fHww')";
-    if (main.includes("rain"))
-      return "url('https://media.istockphoto.com/id/1429701799/photo/raindrops-on-asphalt-rain-rainy-weather-downpour.webp?a=1&b=1&s=612x612&w=0&k=20&c=jc45vpqNDgrvRZAn2foO82IhW9rUeXbQfxvLZaDW8H8=')";
-    if (main.includes("clear"))
-      return "url('https://plus.unsplash.com/premium_photo-1733317236155-b0e1a2930f37?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8Y2xlYXIlMjB3ZWF0aGVyfGVufDB8fDB8fHww')";
-    if (main.includes("snow"))
-      return "url('https://images.unsplash.com/photo-1735592054132-f66712d6356e?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8c25vdyUyMCUyMHdlYXRoZXJ8ZW58MHx8MHx8fDA%3D')";
-    return "url('https://images.unsplash.com/photo-1612251276789-9b1a8f2add8b?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTZ8fGNsZWFyJTIwc2t5fGVufDB8fDB8fHww')";
+  const getWeatherIcon = (main) => {
+    if (main.includes("cloud")) return <FaCloud className="text-blue-400 animate-pulse" />;
+    if (main.includes("rain")) return <FaCloudRain className="text-indigo-400 animate-bounce" />;
+    if (main.includes("clear")) return <FaSun className="text-yellow-400 animate-spin-slow" />;
+    if (main.includes("snow")) return <FaSnowflake className="text-cyan-300 animate-ping" />;
+    return <FaSun className="text-yellow-300" />;
   };
 
   return (
-    
-    <div
-  className="w-screen h-screen flex justify-center items-center rounded-3xl overflow-hidden bg-cover bg-center transition-all duration-1000"
-  style={{ backgroundImage: getBackgroundImage() }}
->
-<div className="max-w-md w-full bg-white/70 backdrop-blur-lg rounded-2xl p-8 shadow-2xl text-center space-y-6 animate-fadeIn">
-        {/* Header */}
-        <h1 className="text-4xl font-bold flex items-center justify-center gap-3 text-black drop-shadow-md animate-pulse">
-          <FaCloudSun /> Weather App
+    <div className="w-screen h-screen bg-gradient-to-br from-purple-900 via-blue-800 to-black flex items-center justify-center p-4">
+      <div className="relative max-w-md w-full bg-gradient-to-tl from-white/10 to-white/20 backdrop-blur-xl rounded-3xl shadow-xl p-8 flex flex-col items-center space-y-6 animate-fadeIn">
+        
+        <h1 className="text-3xl md:text-4xl font-extrabold text-white tracking-wide animate-pulse">
+           Weather App
         </h1>
 
-        {/* Search input */}
-        <div className="flex gap-3 justify-center">
+
+        <div className="w-full flex gap-3">
           <div className="relative flex-1">
             <FaSearch
-              className="absolute left-3 top-1/2 -translate-y-1/2 text-black cursor-pointer"
+              className="absolute left-3 top-1/2 -translate-y-1/2 text-white cursor-pointer hover:text-yellow-300 transition-colors duration-300"
               onClick={getWeather}
             />
             <input
               type="text"
-              placeholder="Enter city"
-              className="w-full p-3 pl-10 rounded-xl text-center text-black focus:outline-none focus:ring-2 focus:ring-gray-400"
+              placeholder="Enter city..."
               value={city}
               onChange={(e) => setCity(e.target.value)}
+              className="w-full p-3 pl-10 rounded-xl bg-white/20 placeholder-white text-white text-center focus:outline-none focus:ring-2 focus:ring-purple-500 focus:bg-white/30 transition-all duration-300"
             />
           </div>
           <button
             onClick={getWeather}
-            className="bg-black/20 text-black px-6 py-3 rounded-xl font-semibold hover:bg-green-400/30 transition"
+            className="px-5 py-3 rounded-xl bg-gradient-to-r from-purple-500 to-indigo-500 text-white font-semibold hover:scale-105 transform transition duration-300"
           >
-            Search
+            Go
           </button>
         </div>
 
-        {/* Error */}
-        {error && <p className="text-red-600 font-semibold">{error}</p>}
+       
+        {error && (
+          <p className="text-red-500 font-bold animate-bounce">{error}</p>
+        )}
 
-        {/* Loading */}
-        {loading && <p className="text-black font-bold animate-ping">Loading...</p>}
+       
+        {loading && (
+          <p className="text-white font-bold animate-ping">Loading...</p>
+        )}
 
-        {/* Weather info */}
+       
         {data && !loading && (
-          <div className="space-y-4 text-black">
-            <h2 className="text-2xl font-semibold">{data.name}</h2>
-            <img
-              src={`https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`}
-              alt="weather icon"
-              className="mx-auto"
-            />
-            <div className="flex flex-col gap-2">
-              <p className="flex items-center justify-center gap-2">
-                <FaTemperatureHigh /> {data.main.temp}°C
+          <div className="flex flex-col items-center space-y-4 w-full text-white">
+            <h2 className="text-2xl font-bold">{data.name}</h2>
+            <div className="text-6xl">{getWeatherIcon(data.weather[0].main.toLowerCase())}</div>
+            <p className="text-4xl font-extrabold">{Math.round(data.main.temp)}°C</p>
+            <div className="flex flex-col gap-2 text-lg md:text-xl w-full">
+              <p className="flex justify-between px-4 py-1 bg-white/10 rounded-xl hover:bg-white/20 transition duration-300">
+                <span>{data.weather[0].description}</span>
               </p>
-              <p className="flex items-center justify-center gap-2">
-                <FaCloud /> {data.weather[0].main}
+              <p className="flex justify-between px-4 py-1 bg-white/10 rounded-xl hover:bg-white/20 transition duration-300">
+                <span>Humidity</span> <FaTint /> {data.main.humidity}%
               </p>
-              <p className="flex items-center justify-center gap-2">
-                <FaInfoCircle /> {data.weather[0].description}
-              </p>
-              <p className="flex items-center justify-center gap-2">
-                <FaTint /> Humidity: {data.main.humidity}%
-              </p>
-              <p className="flex items-center justify-center gap-2">
-                <FaWind /> Wind: {data.wind.speed} km/h
+              <p className="flex justify-between px-4 py-1 bg-white/10 rounded-xl hover:bg-white/20 transition duration-300">
+                <span>Wind</span> <FaWind /> {data.wind.speed} km/h
               </p>
             </div>
           </div>
         )}
+
+       
+        <div className="absolute -top-10 -left-10 w-24 h-24 rounded-full bg-purple-400/30 animate-blob"></div>
+        <div className="absolute -bottom-10 -right-10 w-32 h-32 rounded-full bg-blue-400/30 animate-blob animation-delay-2000"></div>
       </div>
     </div>
   );
